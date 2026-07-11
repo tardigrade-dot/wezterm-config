@@ -6,8 +6,8 @@ local act = wezterm.action
 local mod = {}
 
 if platform.is_mac then
-   mod.SUPER = 'SUPER'
-   mod.SUPER_REV = 'SUPER|CTRL'
+   mod.SUPER = 'CMD'
+   mod.SUPER_REV = 'CTRL'
 elseif platform.is_win or platform.is_linux then
    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
    mod.SUPER_REV = 'ALT|CTRL'
@@ -55,11 +55,11 @@ local keys = {
    { key = 'Backspace',  mods = mod.SUPER,     action = act.SendString('\u{15}') },
 
    -- copy/paste --
-   { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
-   { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
+   { key = 'c',          mods = mod.SUPER,  action = act.CopyTo('Clipboard') },
+   { key = 'v',          mods = mod.SUPER,  action = act.PasteFrom('Clipboard') },
 
-   { key = 'n',          mods = 'CTRL|SHIFT',  action = act.SendString('\u{2660}') },
-   { key = 's',          mods = 'CTRL|SHIFT',  action = act.SendString('\u{203D}') },
+   { key = 'n',          mods = mod.SUPER,  action = act.SendString('\u{2660}') },
+   { key = 's',          mods = mod.SUPER,  action = act.SendString('\u{203D}') },
 
    -- tabs --
    -- tabs: spawn+close
@@ -83,6 +83,8 @@ local keys = {
    -- window --
    -- window: spawn windows
    { key = 'n',          mods = mod.SUPER,     action = act.SpawnWindow },
+
+   { key = 'q', mods = 'CMD', action = wezterm.action.QuitApplication },
 
    -- window: zoom window
    {
